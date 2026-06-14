@@ -1,9 +1,4 @@
-/* =========================================================
-   TypeWithFun
-   leaderboard.js
-   ========================================================= */
-
-"use strict";
+ "use strict";
 
 const LeaderboardController = {
 
@@ -17,10 +12,6 @@ const LeaderboardController = {
 
         this.bindEvents();
     },
-
-    /* =====================================================
-       LOAD
-       ===================================================== */
 
     loadLeaderboard() {
 
@@ -37,105 +28,24 @@ const LeaderboardController = {
 
             this.leaderboard = [];
         }
-
-        if (
-            this.leaderboard.length === 0
-        ) {
-
-            this.generateDemoData();
-        }
     },
-
-    /* =====================================================
-       DEMO DATA
-       ===================================================== */
-
-    generateDemoData() {
-
-        this.leaderboard = [
-
-            {
-                username: "SpeedMaster",
-                avatar:
-                    "../assets/avatars/default-avatar.png",
-                visibility:
-                    "public",
-                bestWPM: 124,
-                accuracy: 99,
-                tests: 312,
-                joinedDate:
-                    "2026-01-01"
-            },
-
-            {
-                username: "LightningKeys",
-                avatar:
-                    "../assets/avatars/default-avatar.png",
-                visibility:
-                    "public",
-                bestWPM: 118,
-                accuracy: 98,
-                tests: 201,
-                joinedDate:
-                    "2026-02-10"
-            },
-
-            {
-                username: "KeyboardPro",
-                avatar:
-                    "../assets/avatars/default-avatar.png",
-                visibility:
-                    "public",
-                bestWPM: 110,
-                accuracy: 97,
-                tests: 156,
-                joinedDate:
-                    "2026-03-05"
-            }
-        ];
-
-        localStorage.setItem(
-            "twf_leaderboard",
-            JSON.stringify(
-                this.leaderboard
-            )
-        );
-    },
-
-    /* =====================================================
-       EVENTS
-       ===================================================== */
 
     bindEvents() {
 
         document
-            .getElementById(
-                "sortFilter"
-            )
+            .getElementById("sortFilter")
             ?.addEventListener(
                 "change",
-                () => {
-
-                    this.render();
-                }
+                () => this.render()
             );
 
         document
-            .getElementById(
-                "periodFilter"
-            )
+            .getElementById("periodFilter")
             ?.addEventListener(
                 "change",
-                () => {
-
-                    this.render();
-                }
+                () => this.render()
             );
     },
-
-    /* =====================================================
-       SORTING
-       ===================================================== */
 
     getSortedLeaderboard() {
 
@@ -144,8 +54,9 @@ const LeaderboardController = {
                 "sortFilter"
             )?.value || "wpm";
 
-        const data =
-            [...this.leaderboard];
+        const data = [
+            ...this.leaderboard
+        ];
 
         switch (sortType) {
 
@@ -173,12 +84,8 @@ const LeaderboardController = {
 
                 data.sort(
                     (a, b) =>
-                        new Date(
-                            a.joinedDate
-                        ) -
-                        new Date(
-                            b.joinedDate
-                        )
+                        new Date(a.joinedDate) -
+                        new Date(b.joinedDate)
                 );
 
                 break;
@@ -195,10 +102,6 @@ const LeaderboardController = {
         return data;
     },
 
-    /* =====================================================
-       RENDER
-       ===================================================== */
-
     render() {
 
         const tbody =
@@ -206,27 +109,29 @@ const LeaderboardController = {
                 "leaderboardBody"
             );
 
-        if (!tbody) {
-            return;
-        }
+        if (!tbody) return;
 
         const data =
             this.getSortedLeaderboard();
 
-        tbody.innerHTML =
-            data
-            .map(
-                (
-                    user,
-                    index
-                ) => {
+        if (data.length === 0) {
 
-                    const privateUser =
-                        user.visibility ===
-                        "private";
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6">
+                        No scores yet.
+                        Complete a typing test first.
+                    </td>
+                </tr>
+            `;
 
-                    return `
+            return;
+        }
 
+        tbody.innerHTML = data
+            .map((user, index) => {
+
+                return `
                     <tr>
 
                         <td>
@@ -234,68 +139,37 @@ const LeaderboardController = {
                         </td>
 
                         <td>
-
-                            ${
-                                privateUser
-                                    ? "🔒"
-                                    : `<img
-                                        src="${user.avatar}"
-                                        class="leaderboard-avatar"
-                                        alt="Avatar">`
-                            }
-
+                            👤
                         </td>
 
                         <td>
-
-                            ${
-                                privateUser
-                                    ? "Anonymous User"
-                                    : user.username
-                            }
-
+                            ${user.username || "Player"}
                         </td>
 
                         <td>
-                            ${user.bestWPM}
+                            ${user.bestWPM || 0}
                         </td>
 
                         <td>
-                            ${user.accuracy}%
+                            ${user.accuracy || 0}%
                         </td>
 
                         <td>
-                            ${user.tests}
+                            ${user.tests || 0}
                         </td>
 
                     </tr>
-
                 `;
-                }
-            )
+            })
             .join("");
     }
 };
-
-/* =========================================================
-   START
-   ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        try {
-
-            LeaderboardController
-                .initialize();
-
-        } catch (error) {
-
-            console.error(
-                "Leaderboard error",
-                error
-            );
-        }
+        LeaderboardController
+            .initialize();
     }
 );
