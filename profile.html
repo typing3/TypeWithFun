@@ -1,531 +1,270 @@
-    handleTyping(event) {
+ <!DOCTYPE html>
+<html lang="en">
 
-        if (
-            !this.state.started ||
-            this.state.paused ||
-            this.state.completed
-        ) {
-            return;
-        }
-
-        const input =
-            event.target.value;
+<head>
 
-        const spans =
-            this.elements
-                .typingText
-                .querySelectorAll(
-                    "span"
-                );
+    <meta charset="UTF-8">
 
-        this.state.currentIndex =
-            input.length;
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-        this.state.correctChars = 0;
-        this.state.incorrectChars = 0;
+    <title>TypeWithFun • Profile</title>
 
-        for (
-            let i = 0;
-            i < spans.length;
-            i++
-        ) {
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-            spans[i].classList.remove(
-                "correct",
-                "incorrect",
-                "current"
-            );
-
-            const typedChar =
-                input[i];
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
 
-            const actualChar =
-                this.state
-                    .currentText[i];
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-            if (
-                typedChar == null
-            ) {
+    <link rel="stylesheet"
+        href="style.css">
 
-                continue;
-            }
+    <link rel="stylesheet"
+        href="components.css">
 
-            if (
-                typedChar ===
-                actualChar
-            ) {
+    <link rel="stylesheet"
+        href="animations.css">
 
-                spans[i].classList.add(
-                    "correct"
-                );
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-                this.state
-                    .correctChars++;
+</head>
 
-            } else {
+<body>
 
-                spans[i].classList.add(
-                    "incorrect"
-                );
-
-                this.state
-                    .incorrectChars++;
-            }
-        }
-
-        this.state.totalKeystrokes =
-            input.length;
-
-        this.renderCursor();
-
-        this.calculateStats();
-
-        if (
-            input.length >=
-            this.state.currentText.length
-        ) {
-
-            this.finishTest();
-        }
-    },
-
-    /* =====================================================
-       TIMER
-       ===================================================== */
-
-    startTimer() {
-
-        clearInterval(
-            this.state.interval
-        );
-
-        this.state.interval =
-            setInterval(
-                () => {
-
-                    if (
-                        this.state.paused
-                    ) {
-                        return;
-                    }
-
-                    this.state
-                        .remainingTime--;
-
-                    this.updateDisplays();
-
-                    if (
-                        this.state
-                            .remainingTime <= 0
-                    ) {
-
-                        this.finishTest();
-                    }
-
-                },
-                1000
-            );
-    },
-
-    pauseTest() {
-
-        if (
-            !this.state.started ||
-            this.state.completed
-        ) {
-            return;
-        }
-
-        this.state.paused = true;
-    },
-
-    resumeTest() {
-
-        if (
-            !this.state.started ||
-            this.state.completed
-        ) {
-            return;
-        }
-
-        this.state.paused = false;
-
-        this.elements
-            .typingInput
-            ?.focus();
-    },
-
-    /* =====================================================
-       CALCULATIONS
-       ===================================================== */
-
-    calculateStats() {
-
-        const elapsedSeconds =
-            Math.max(
-                1,
-                (
-                    Date.now() -
-                    this.state
-                        .startTimestamp
-                ) / 1000
-            );
-
-        const elapsedMinutes =
-            elapsedSeconds / 60;
-
-        this.state.currentWPM =
-            Math.round(
-                (
-                    this.state
-                        .correctChars / 5
-                ) /
-                elapsedMinutes
-            );
-
-        this.state.currentCPM =
-            Math.round(
-                this.state
-                    .correctChars /
-                elapsedMinutes
-            );
-
-        this.state.accuracy =
-            this.state
-                .totalKeystrokes > 0
-
-                ? Math.round(
-                      (
-                          this.state
-                              .correctChars /
-                          this.state
-                              .totalKeystrokes
-                      ) * 100
-                  )
-
-                : 100;
-
-        if (
-            this.state.currentWPM >
-            this.state.peakWPM
-        ) {
-
-            this.state.peakWPM =
-                this.state.currentWPM;
-        }
-
-        this.updateDisplays();
-    },
-
-    updateDisplays() {
-
-        if (
-            this.elements.wpmDisplay
-        ) {
-
-            this.elements
-                .wpmDisplay
-                .textContent =
-                this.state.currentWPM;
-        }
-
-        if (
-            this.elements.cpmDisplay
-        ) {
-
-            this.elements
-                .cpmDisplay
-                .textContent =
-                this.state.currentCPM;
-        }
-
-        if (
-            this.elements
-                .accuracyDisplay
-        ) {
-
-            this.elements
-                .accuracyDisplay
-                .textContent =
-                `${this.state.accuracy}%`;
-        }
-
-        if (
-            this.elements
-                .errorDisplay
-        ) {
-
-            this.elements
-                .errorDisplay
-                .textContent =
-                this.state
-                    .incorrectChars;
-        }
-
-        if (
-            this.elements
-                .timerDisplay
-        ) {
-
-            this.elements
-                .timerDisplay
-                .textContent =
-                this.state
-                    .remainingTime;
-        }
-
-        const progress =
-            this.state
-                .currentText.length > 0
-
-                ? Math.round(
-                      (
-                          this.state
-                              .currentIndex /
-                          this.state
-                              .currentText
-                              .length
-                      ) * 100
-                  )
-
-                : 0;
-
-        if (
-            this.elements
-                .progressDisplay
-        ) {
-
-            this.elements
-                .progressDisplay
-                .textContent =
-                `${progress}%`;
-        }
-    },
-
-    /* =====================================================
-       FINISH TEST
-       ===================================================== */
-
-    finishTest() {
-
-        if (
-            this.state.completed
-        ) {
-            return;
-        }
-
-        this.state.completed =
-            true;
-
-        clearInterval(
-            this.state.interval
-        );
-
-        this.state.endTimestamp =
-            Date.now();
-
-        this.calculateStats();
-
-        const result = {
-
-            date:
-                new Date()
-                .toISOString(),
-
-            category:
-                this.state
-                    .category,
-
-            wpm:
-                this.state
-                    .currentWPM,
-
-            peakWPM:
-                this.state
-                    .peakWPM,
-
-            accuracy:
-                this.state
-                    .accuracy,
-
-            errors:
-                this.state
-                    .incorrectChars,
-
-            timeTaken:
-                this.state
-                    .timerDuration -
-                this.state
-                    .remainingTime
-        };
-
-        this.saveResult(
-            result
-        );
-
-        this.showResults(
-            result
-        );
-    },
-
-    saveResult(result) {
+    <div id="particles"
+        class="particles"></div>
+
+    <nav class="navbar glass">
+
+        <div class="nav-left">
+
+            <a href="index.html"
+                class="btn btn-secondary">
+
+                <i class="fas fa-home"></i>
+                Home
+
+            </a>
+
+        </div>
+
+        <div class="nav-center">
+
+            <h2>My Profile</h2>
+
+        </div>
+
+        <div class="nav-right">
+
+            <button onclick="history.back()"
+                class="btn btn-secondary">
+
+                Back
+
+            </button>
+
+        </div>
+
+    </nav>
+
+    <main class="profile-page">
+
+        <section class="glass card">
+
+            <div style="text-align:center;">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    alt="Avatar"
+                    style="
+                    width:120px;
+                    height:120px;
+                    border-radius:50%;
+                    margin-bottom:15px;
+                ">
+
+                <h1 id="usernameDisplay">
+                    Typist
+                </h1>
+
+                <p>
+                    Welcome to your TypeWithFun profile.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="stats-grid">
+
+            <div class="glass stat-card">
+
+                <span>Best WPM</span>
+
+                <h2 id="bestWpm">
+                    0
+                </h2>
+
+            </div>
+
+            <div class="glass stat-card">
+
+                <span>Average WPM</span>
+
+                <h2 id="avgWpm">
+                    0
+                </h2>
+
+            </div>
+
+            <div class="glass stat-card">
+
+                <span>Accuracy</span>
+
+                <h2 id="avgAccuracy">
+                    0%
+                </h2>
+
+            </div>
+
+            <div class="glass stat-card">
+
+                <span>Tests Completed</span>
+
+                <h2 id="totalTests">
+                    0
+                </h2>
+
+            </div>
+
+        </section>
+
+        <section class="glass card">
+
+            <h2>
+                Recent Results
+            </h2>
+
+            <div id="historyContainer">
+
+                <p>
+                    No tests completed yet.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
 
         let history = [];
 
         try {
 
-            history =
-                JSON.parse(
-                    localStorage.getItem(
-                        "twf_typing_history"
-                    )
-                ) || [];
+            history = JSON.parse(
+                localStorage.getItem(
+                    "twf_typing_history"
+                )
+            ) || [];
 
         } catch {
 
             history = [];
         }
 
-        history.push(
-            result
-        );
+        const totalTests =
+            history.length;
 
-        localStorage.setItem(
-            "twf_typing_history",
-            JSON.stringify(
-                history
-            )
-        );
-    },
+        const bestWpm =
+            history.length
+                ? Math.max(
+                    ...history.map(
+                        h => h.wpm || 0
+                    )
+                )
+                : 0;
 
-    showResults(result) {
+        const avgWpm =
+            history.length
+                ? Math.round(
+                    history.reduce(
+                        (sum, h) =>
+                            sum +
+                            (h.wpm || 0),
+                        0
+                    ) / history.length
+                )
+                : 0;
+
+        const avgAccuracy =
+            history.length
+                ? Math.round(
+                    history.reduce(
+                        (sum, h) =>
+                            sum +
+                            (h.accuracy || 0),
+                        0
+                    ) / history.length
+                )
+                : 0;
+
+        document.getElementById(
+            "bestWpm"
+        ).textContent =
+            bestWpm;
+
+        document.getElementById(
+            "avgWpm"
+        ).textContent =
+            avgWpm;
+
+        document.getElementById(
+            "avgAccuracy"
+        ).textContent =
+            avgAccuracy + "%";
+
+        document.getElementById(
+            "totalTests"
+        ).textContent =
+            totalTests;
+
+        const container =
+            document.getElementById(
+                "historyContainer"
+            );
 
         if (
-            !this.elements
-                .resultContent
+            history.length > 0
         ) {
-            return;
+
+            container.innerHTML =
+                history
+                    .slice()
+                    .reverse()
+                    .slice(0, 10)
+                    .map(
+                        result => `
+                        <div class="glass card" style="margin-bottom:10px;">
+                            <strong>WPM:</strong> ${result.wpm}
+                            |
+                            <strong>Accuracy:</strong> ${result.accuracy}%
+                            |
+                            <strong>Category:</strong> ${result.category}
+                        </div>
+                    `
+                    )
+                    .join("");
         }
 
-        this.elements
-            .resultContent
-            .innerHTML = `
+    </script>
 
-            <p><strong>Final WPM:</strong> ${result.wpm}</p>
+</body>
 
-            <p><strong>Peak WPM:</strong> ${result.peakWPM}</p>
-
-            <p><strong>Accuracy:</strong> ${result.accuracy}%</p>
-
-            <p><strong>Errors:</strong> ${result.errors}</p>
-
-            <p><strong>Time Taken:</strong> ${result.timeTaken}s</p>
-
-            <p><strong>Category:</strong> ${result.category}</p>
-
-        `;
-
-        this.elements
-            .resultModal
-            ?.classList.remove(
-                "hidden"
-            );
-    },
-
-    /* =====================================================
-       RESET
-       ===================================================== */
-
-    restartTest() {
-
-        clearInterval(
-            this.state.interval
-        );
-
-        this.state.started =
-            false;
-
-        this.state.paused =
-            false;
-
-        this.state.completed =
-            false;
-
-        this.state.remainingTime =
-            this.state
-                .timerDuration;
-
-        this.state.currentIndex =
-            0;
-
-        this.state.correctChars =
-            0;
-
-        this.state.incorrectChars =
-            0;
-
-        this.state.totalKeystrokes =
-            0;
-
-        this.state.currentWPM =
-            0;
-
-        this.state.currentCPM =
-            0;
-
-        this.state.peakWPM =
-            0;
-
-        this.state.accuracy =
-            100;
-
-        this.elements
-            .resultModal
-            ?.classList.add(
-                "hidden"
-            );
-
-        this.renderText();
-
-        this.resetInput();
-
-        this.updateDisplays();
-    },
-
-    skipText() {
-
-        this.restartTest();
-
-        this.loadRandomText();
-    }
-};
-
-/* =========================================================
-   EXPORT
-   ========================================================= */
-
-window.TypingEngine =
-    TypingEngine;
-
-/* =========================================================
-   AUTO START
-   ========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        try {
-
-            TypingEngine
-                .initialize();
-
-        } catch (error) {
-
-            console.error(
-                "Typing Engine Error",
-                error
-            );
-        }
-    }
-);
+</html>
