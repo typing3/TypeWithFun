@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,17 +30,19 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <link
-        rel="stylesheet"
-        href="../css/style.css">
+    <!-- FIXED CSS PATHS -->
 
     <link
         rel="stylesheet"
-        href="../css/components.css">
+        href="style.css">
 
     <link
         rel="stylesheet"
-        href="../css/animations.css">
+        href="components.css">
+
+    <link
+        rel="stylesheet"
+        href="animations.css">
 
     <link
         rel="stylesheet"
@@ -50,34 +52,26 @@
 
 <body>
 
-    <!-- =====================================
-         PARTICLES
-         ===================================== -->
-
     <div
         id="particles"
         class="particles">
     </div>
 
-    <!-- =====================================
-         NAVBAR
-         ===================================== -->
-
     <nav class="navbar glass">
 
         <div class="nav-left">
 
-            <button
-                id="homeButton"
+            <a
+                href="index.html"
                 class="btn btn-secondary">
 
                 <i class="fas fa-home"></i>
                 Home
 
-            </button>
+            </a>
 
             <button
-                id="backButton"
+                onclick="history.back()"
                 class="btn btn-secondary">
 
                 <i class="fas fa-arrow-left"></i>
@@ -109,15 +103,7 @@
 
     </nav>
 
-    <!-- =====================================
-         MAIN
-         ===================================== -->
-
     <main class="practice-page">
-
-        <!-- ==========================
-             TOP CONTROLS
-             ========================== -->
 
         <section class="glass card">
 
@@ -127,19 +113,13 @@
 
             <div class="practice-controls">
 
-                <!-- CATEGORY -->
-
                 <div class="form-group">
 
-                    <label
-                        for="categorySelect">
-
+                    <label for="categorySelect">
                         Category
-
                     </label>
 
-                    <select
-                        id="categorySelect">
+                    <select id="categorySelect">
 
                         <option value="quotes">
                             Quotes
@@ -161,19 +141,13 @@
 
                 </div>
 
-                <!-- TEXT -->
-
                 <div class="form-group">
 
-                    <label
-                        for="textSelect">
-
+                    <label for="textSelect">
                         Text
-
                     </label>
 
-                    <select
-                        id="textSelect">
+                    <select id="textSelect">
 
                         <option>
                             Random Selection
@@ -183,19 +157,13 @@
 
                 </div>
 
-                <!-- TIMER -->
-
                 <div class="form-group">
 
-                    <label
-                        for="timerSelect">
-
+                    <label for="timerSelect">
                         Timer
-
                     </label>
 
-                    <select
-                        id="timerSelect">
+                    <select id="timerSelect">
 
                         <option value="15">
                             15 Seconds
@@ -205,11 +173,8 @@
                             30 Seconds
                         </option>
 
-                        <option value="60"
-                            selected>
-
+                        <option value="60" selected>
                             60 Seconds
-
                         </option>
 
                         <option value="120">
@@ -224,18 +189,13 @@
 
                 </div>
 
-                <!-- CUSTOM TIMER -->
-
                 <div
                     class="form-group"
                     id="customTimerContainer"
                     style="display:none;">
 
-                    <label
-                        for="customTimerInput">
-
+                    <label for="customTimerInput">
                         Custom Seconds
-
                     </label>
 
                     <input
@@ -251,117 +211,41 @@
 
         </section>
 
-        <!-- ==========================
-             LIVE STATS
-             ========================== -->
+        <section class="stats-grid">
 
-        <section
-            class="stats-grid">
-
-            <div
-                class="glass stat-card">
-
-                <span>
-                    WPM
-                </span>
-
-                <h2
-                    id="wpmDisplay">
-
-                    0
-
-                </h2>
-
+            <div class="glass stat-card">
+                <span>WPM</span>
+                <h2 id="wpmDisplay">0</h2>
             </div>
 
-            <div
-                class="glass stat-card">
-
-                <span>
-                    CPM
-                </span>
-
-                <h2
-                    id="cpmDisplay">
-
-                    0
-
-                </h2>
-
+            <div class="glass stat-card">
+                <span>CPM</span>
+                <h2 id="cpmDisplay">0</h2>
             </div>
 
-            <div
-                class="glass stat-card">
-
-                <span>
-                    Accuracy
-                </span>
-
-                <h2
-                    id="accuracyDisplay">
-
-                    100%
-
-                </h2>
-
+            <div class="glass stat-card">
+                <span>Accuracy</span>
+                <h2 id="accuracyDisplay">100%</h2>
             </div>
 
-            <div
-                class="glass stat-card">
-
-                <span>
-                    Errors
-                </span>
-
-                <h2
-                    id="errorDisplay">
-
-                    0
-
-                </h2>
-
+            <div class="glass stat-card">
+                <span>Errors</span>
+                <h2 id="errorDisplay">0</h2>
             </div>
 
-            <div
-                class="glass stat-card">
-
-                <span>
-                    Progress
-                </span>
-
-                <h2
-                    id="progressDisplay">
-
-                    0%
-
-                </h2>
-
+            <div class="glass stat-card">
+                <span>Progress</span>
+                <h2 id="progressDisplay">0%</h2>
             </div>
 
-            <div
-                class="glass stat-card">
-
-                <span>
-                    Time Left
-                </span>
-
-                <h2
-                    id="timerDisplay">
-
-                    60
-
-                </h2>
-
+            <div class="glass stat-card">
+                <span>Time Left</span>
+                <h2 id="timerDisplay">60</h2>
             </div>
 
         </section>
 
-        <!-- ==========================
-             TEXT AREA
-             ========================== -->
-
-        <section
-            class="glass card typing-section">
+        <section class="glass card typing-section">
 
             <div
                 id="typingText"
@@ -372,12 +256,7 @@
 
         </section>
 
-        <!-- ==========================
-             INPUT
-             ========================== -->
-
-        <section
-            class="glass card">
+        <section class="glass card">
 
             <input
                 id="typingInput"
@@ -390,12 +269,7 @@
 
         </section>
 
-        <!-- ==========================
-             ACTION BUTTONS
-             ========================== -->
-
-        <section
-            class="action-buttons">
+        <section class="action-buttons">
 
             <button
                 id="startButton"
@@ -446,10 +320,6 @@
 
     </main>
 
-    <!-- =====================================
-         RESULTS MODAL
-         ===================================== -->
-
     <div
         id="resultModal"
         class="modal hidden">
@@ -466,8 +336,7 @@
 
             </div>
 
-            <div
-                class="modal-actions">
+            <div class="modal-actions">
 
                 <button
                     id="retryButton"
@@ -499,28 +368,19 @@
 
     </div>
 
-    <!-- =====================================
-         DATASETS
-         ===================================== -->
+    <!-- FIXED DATA FILE PATHS -->
 
-    <script src="../data/quotes.js"></script>
-    <script src="../data/words.js"></script>
-    <script src="../data/paragraphs.js"></script>
-    <script src="../data/books.js"></script>
+    <script src="quotes.js"></script>
+    <script src="words.js"></script>
+    <script src="paragraphs.js"></script>
+    <script src="books.js"></script>
 
-    <!-- =====================================
-         CORE
-         ===================================== -->
+    <!-- FIXED JS PATHS -->
 
-    <script src="../js/storage.js"></script>
-    <script src="../js/auth.js"></script>
-    <script src="../js/app.js"></script>
-
-    <!-- =====================================
-         PRACTICE ENGINE
-         ===================================== -->
-
-    <script src="../js/typing.js"></script>
+    <script src="storage.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+    <script src="typing.js"></script>
 
 </body>
 
