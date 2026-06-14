@@ -1,0 +1,623 @@
+/* =========================================================
+   TypeWithFun
+   animations.css
+   Premium Animation System
+   ========================================================= */
+
+/* =========================
+   GLOBAL ANIMATION SETTINGS
+   ========================= */
+
+:root {
+  --anim-fast: 0.2s;
+  --anim-normal: 0.4s;
+  --anim-slow: 0.8s;
+  --anim-extra-slow: 1.5s;
+}
+
+/* =========================
+   FADE IN
+   ========================= */
+
+.fade-in {
+  animation: fadeIn var(--anim-normal) ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   FADE UP
+   ========================= */
+
+.fade-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   FADE DOWN
+   ========================= */
+
+.fade-down {
+  animation: fadeDown 0.8s ease forwards;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   SCALE IN
+   ========================= */
+
+.scale-in {
+  animation: scaleIn 0.4s ease forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   FLOATING EFFECT
+   ========================= */
+
+.float {
+  animation: floating 4s ease-in-out infinite;
+}
+
+@keyframes floating {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   PULSE
+   ========================= */
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   GLOW EFFECT
+   ========================= */
+
+.glow {
+  animation: glow 3s ease infinite;
+}
+
+@keyframes glow {
+
+  0% {
+    box-shadow:
+      0 0 10px rgba(79,70,229,.3);
+  }
+
+  50% {
+    box-shadow:
+      0 0 30px rgba(124,58,237,.6);
+  }
+
+  100% {
+    box-shadow:
+      0 0 10px rgba(79,70,229,.3);
+  }
+}
+
+/* =========================
+   GRADIENT SHIFT
+   ========================= */
+
+.animated-gradient {
+  background-size: 300% 300%;
+
+  animation:
+    gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* =========================
+   HERO TITLE ANIMATION
+   ========================= */
+
+.hero h1 {
+  animation:
+    heroTitleReveal 1s ease;
+}
+
+@keyframes heroTitleReveal {
+
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   HERO PARAGRAPH
+   ========================= */
+
+.hero p {
+  animation:
+    heroParagraphReveal 1.2s ease;
+}
+
+@keyframes heroParagraphReveal {
+
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   BUTTON HOVER
+   ========================= */
+
+.btn {
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    opacity .25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
+/* =========================
+   CARD ENTRANCE
+   ========================= */
+
+.dashboard-card {
+  animation:
+    cardAppear .8s ease;
+}
+
+@keyframes cardAppear {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   CARD HOVER
+   ========================= */
+
+.dashboard-card:hover {
+  animation:
+    cardHover .3s ease forwards;
+}
+
+@keyframes cardHover {
+
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+/* =========================
+   MODAL OPEN
+   ========================= */
+
+.modal {
+  animation:
+    modalBackdrop .3s ease;
+}
+
+.modal-content {
+  animation:
+    modalContent .35s ease;
+}
+
+@keyframes modalBackdrop {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalContent {
+
+  from {
+    opacity: 0;
+    transform: scale(.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   TOAST ENTRY
+   ========================= */
+
+.toast {
+  animation:
+    toastSlide .35s ease;
+}
+
+@keyframes toastSlide {
+
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================
+   SPINNER
+   ========================= */
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   ACHIEVEMENT UNLOCK
+   ========================= */
+
+.achievement-unlocked {
+  animation:
+    achievementGlow 3s infinite;
+}
+
+@keyframes achievementGlow {
+
+  0% {
+    box-shadow:
+      0 0 0 rgba(236,72,153,0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 25px rgba(236,72,153,.7);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 rgba(236,72,153,0);
+  }
+}
+
+/* =========================
+   BADGE POP
+   ========================= */
+
+.badge-pop {
+  animation:
+    badgePop .5s ease;
+}
+
+@keyframes badgePop {
+
+  0% {
+    transform: scale(.5);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   PROGRESS BAR ANIMATION
+   ========================= */
+
+.progress-fill {
+  animation:
+    progressGrow .8s ease;
+}
+
+@keyframes progressGrow {
+
+  from {
+    width: 0%;
+  }
+}
+
+/* =========================
+   CURSOR BLINK
+   ========================= */
+
+.typing-cursor {
+  animation:
+    cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* =========================
+   CORRECT CHARACTER
+   ========================= */
+
+.char-correct {
+  animation:
+    correctPop .12s ease;
+}
+
+@keyframes correctPop {
+
+  from {
+    transform: scale(.95);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   INCORRECT CHARACTER
+   ========================= */
+
+.char-incorrect {
+  animation:
+    shakeX .2s ease;
+}
+
+@keyframes shakeX {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(2px);
+  }
+
+  75% {
+    transform: translateX(-2px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* =========================
+   DAILY CHALLENGE GLOW
+   ========================= */
+
+.challenge-banner {
+  animation:
+    challengeGlow 5s ease infinite;
+}
+
+@keyframes challengeGlow {
+
+  0% {
+    box-shadow:
+      0 0 15px rgba(79,70,229,.15);
+  }
+
+  50% {
+    box-shadow:
+      0 0 35px rgba(124,58,237,.25);
+  }
+
+  100% {
+    box-shadow:
+      0 0 15px rgba(79,70,229,.15);
+  }
+}
+
+/* =========================
+   PARTICLE FLOAT
+   ========================= */
+
+.particle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  animation:
+    particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+
+  from {
+    transform:
+      translateY(100vh)
+      translateX(0);
+  }
+
+  to {
+    transform:
+      translateY(-120px)
+      translateX(50px);
+  }
+}
+
+/* =========================
+   FUTURE RACE MODE
+   ========================= */
+
+.racer {
+  transition:
+    left .2s linear;
+}
+
+.finish-flag {
+  animation:
+    finishWave 2s infinite;
+}
+
+@keyframes finishWave {
+
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(3deg);
+  }
+
+  50% {
+    transform: rotate(-3deg);
+  }
+
+  75% {
+    transform: rotate(3deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* =========================
+   REDUCED MOTION SUPPORT
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
