@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,7 +13,6 @@
         TypeWithFun • Statistics
     </title>
 
-    <!-- Google Fonts -->
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com">
@@ -27,7 +26,6 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
     <link
         rel="stylesheet"
         href="../css/style.css">
@@ -40,27 +38,20 @@
         rel="stylesheet"
         href="../css/animations.css">
 
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
-    <!-- Particle Background -->
-
     <div
         id="particles"
         class="particles">
     </div>
 
-    <!-- Navigation -->
+    <nav class="navbar glass">
 
-    <nav
-        class="navbar glass">
-
-        <div
-            class="nav-left">
+        <div class="nav-left">
 
             <a
                 href="../index.html"
@@ -80,8 +71,7 @@
 
         </div>
 
-        <div
-            class="nav-center">
+        <div class="nav-center">
 
             <h2>
                 Statistics Dashboard
@@ -91,152 +81,139 @@
 
     </nav>
 
-    <!-- Main Content -->
+    <main class="container">
 
-    <main
-        class="container">
-
-        <!-- Header -->
-
-        <section
-            class="glass card">
+        <section class="glass card">
 
             <h1>
                 📊 Performance Analytics
             </h1>
 
             <p>
-                Track your typing performance,
-                accuracy and progress over time.
+                Track your typing growth and performance.
             </p>
 
         </section>
 
-        <!-- Summary Cards -->
+        <!-- SUMMARY -->
 
-        <section
-            class="stats-grid">
+        <section class="stats-grid">
 
-            <div
-                class="glass card">
+            <div class="glass card">
 
                 <h3>
                     Tests Completed
                 </h3>
 
-                <h2
-                    id="totalTests">
-
+                <h2 id="totalTests">
                     0
-
                 </h2>
 
             </div>
 
-            <div
-                class="glass card">
+            <div class="glass card">
 
                 <h3>
                     Best WPM
                 </h3>
 
-                <h2
-                    id="bestWPM">
-
+                <h2 id="bestWPM">
                     0
-
                 </h2>
 
             </div>
 
-            <div
-                class="glass card">
+            <div class="glass card">
+
+                <h3>
+                    Average WPM
+                </h3>
+
+                <h2 id="averageWPM">
+                    0
+                </h2>
+
+            </div>
+
+            <div class="glass card">
 
                 <h3>
                     Average Accuracy
                 </h3>
 
-                <h2
-                    id="averageAccuracy">
-
+                <h2 id="averageAccuracy">
                     0%
-
                 </h2>
 
             </div>
 
-            <div
-                class="glass card">
+            <div class="glass card">
 
                 <h3>
                     Total Typing Time
                 </h3>
 
-                <h2
-                    id="totalTypingTime">
-
+                <h2 id="totalTypingTime">
                     0m
+                </h2>
 
+            </div>
+
+            <div class="glass card">
+
+                <h3>
+                    Total Errors
+                </h3>
+
+                <h2 id="totalErrors">
+                    0
                 </h2>
 
             </div>
 
         </section>
 
-        <!-- Charts -->
+        <!-- CHARTS -->
 
-        <section
-            class="stats-grid">
+        <section class="stats-grid">
 
-            <div
-                class="glass card chart-card">
+            <div class="glass card chart-card">
 
                 <h3>
                     WPM Progress
                 </h3>
 
-                <canvas
-                    id="wpmChart">
-                </canvas>
+                <canvas id="wpmChart"></canvas>
 
             </div>
 
-            <div
-                class="glass card chart-card">
+            <div class="glass card chart-card">
 
                 <h3>
                     Accuracy Progress
                 </h3>
 
-                <canvas
-                    id="accuracyChart">
-                </canvas>
+                <canvas id="accuracyChart"></canvas>
 
             </div>
 
-            <div
-                class="glass card chart-card">
+            <div class="glass card chart-card">
 
                 <h3>
-                    Practice Frequency
+                    Errors Per Test
                 </h3>
 
-                <canvas
-                    id="frequencyChart">
-                </canvas>
+                <canvas id="errorChart"></canvas>
 
             </div>
 
-            <div
-                class="glass card chart-card">
+            <div class="glass card chart-card">
 
                 <h3>
-                    Typing Time
+                    Time Per Test
                 </h3>
 
-                <canvas
-                    id="timeChart">
-                </canvas>
+                <canvas id="timeChart"></canvas>
 
             </div>
 
@@ -244,100 +221,197 @@
 
     </main>
 
-    <!-- Scripts -->
-
-    <script src="../js/storage.js"></script>
-    <script src="../js/app.js"></script>
-    <script src="../js/statistics.js"></script>
-
     <script>
 
         document.addEventListener(
             "DOMContentLoaded",
             () => {
 
+                let history = [];
+
                 try {
 
-                    const history =
+                    history =
                         JSON.parse(
                             localStorage.getItem(
                                 "twf_typing_history"
                             )
                         ) || [];
 
-                    document.getElementById(
-                        "totalTests"
-                    ).textContent =
-                        history.length;
+                } catch {
 
-                    const bestWPM =
-                        history.length
-                            ? Math.max(
-                                  ...history.map(
-                                      item =>
-                                          item.wpm || 0
-                                  )
-                              )
-                            : 0;
-
-                    document.getElementById(
-                        "bestWPM"
-                    ).textContent =
-                        bestWPM;
-
-                    const avgAccuracy =
-                        history.length
-                            ? Math.round(
-                                  history.reduce(
-                                      (
-                                          total,
-                                          item
-                                      ) =>
-                                          total +
-                                          (
-                                              item.accuracy ||
-                                              0
-                                          ),
-                                      0
-                                  ) /
-                                      history.length
-                              )
-                            : 0;
-
-                    document.getElementById(
-                        "averageAccuracy"
-                    ).textContent =
-                        avgAccuracy + "%";
-
-                    const totalTime =
-                        history.reduce(
-                            (
-                                total,
-                                item
-                            ) =>
-                                total +
-                                (
-                                    item.timeTaken ||
-                                    0
-                                ),
-                            0
-                        );
-
-                    document.getElementById(
-                        "totalTypingTime"
-                    ).textContent =
-                        Math.round(
-                            totalTime / 60
-                        ) + "m";
-
-                } catch (
-                    error
-                ) {
-
-                    console.error(
-                        error
-                    );
+                    history = [];
                 }
+
+                const labels =
+                    history.map(
+                        (_, index) =>
+                            `#${index + 1}`
+                    );
+
+                const bestWPM =
+                    history.length
+                        ? Math.max(
+                              ...history.map(
+                                  item =>
+                                      item.wpm || 0
+                              )
+                          )
+                        : 0;
+
+                const averageWPM =
+                    history.length
+                        ? Math.round(
+                              history.reduce(
+                                  (total, item) =>
+                                      total +
+                                      (item.wpm || 0),
+                                  0
+                              ) /
+                                  history.length
+                          )
+                        : 0;
+
+                const averageAccuracy =
+                    history.length
+                        ? Math.round(
+                              history.reduce(
+                                  (total, item) =>
+                                      total +
+                                      (item.accuracy || 0),
+                                  0
+                              ) /
+                                  history.length
+                          )
+                        : 0;
+
+                const totalTime =
+                    history.reduce(
+                        (total, item) =>
+                            total +
+                            (item.timeTaken || 0),
+                        0
+                    );
+
+                const totalErrors =
+                    history.reduce(
+                        (total, item) =>
+                            total +
+                            (item.errors || 0),
+                        0
+                    );
+
+                document.getElementById(
+                    "totalTests"
+                ).textContent =
+                    history.length;
+
+                document.getElementById(
+                    "bestWPM"
+                ).textContent =
+                    bestWPM;
+
+                document.getElementById(
+                    "averageWPM"
+                ).textContent =
+                    averageWPM;
+
+                document.getElementById(
+                    "averageAccuracy"
+                ).textContent =
+                    averageAccuracy + "%";
+
+                document.getElementById(
+                    "totalTypingTime"
+                ).textContent =
+                    Math.round(
+                        totalTime / 60
+                    ) + "m";
+
+                document.getElementById(
+                    "totalErrors"
+                ).textContent =
+                    totalErrors;
+
+                new Chart(
+                    document.getElementById(
+                        "wpmChart"
+                    ),
+                    {
+                        type: "line",
+                        data: {
+                            labels,
+                            datasets: [{
+                                label: "WPM",
+                                data: history.map(
+                                    item =>
+                                        item.wpm
+                                ),
+                                borderWidth: 2
+                            }]
+                        }
+                    }
+                );
+
+                new Chart(
+                    document.getElementById(
+                        "accuracyChart"
+                    ),
+                    {
+                        type: "line",
+                        data: {
+                            labels,
+                            datasets: [{
+                                label:
+                                    "Accuracy %",
+                                data: history.map(
+                                    item =>
+                                        item.accuracy
+                                ),
+                                borderWidth: 2
+                            }]
+                        }
+                    }
+                );
+
+                new Chart(
+                    document.getElementById(
+                        "errorChart"
+                    ),
+                    {
+                        type: "bar",
+                        data: {
+                            labels,
+                            datasets: [{
+                                label: "Errors",
+                                data: history.map(
+                                    item =>
+                                        item.errors
+                                )
+                            }]
+                        }
+                    }
+                );
+
+                new Chart(
+                    document.getElementById(
+                        "timeChart"
+                    ),
+                    {
+                        type: "bar",
+                        data: {
+                            labels,
+                            datasets: [{
+                                label:
+                                    "Time (sec)",
+                                data: history.map(
+                                    item =>
+                                        item.timeTaken
+                                )
+                            }]
+                        }
+                    }
+                );
             }
         );
 
