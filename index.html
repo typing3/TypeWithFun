@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+/>
+
+<title>TypeWithFun | Modern Touch Typing Platform</title>
+
+<meta
+    name="description"
+    content="Master touch typing with fun challenges, achievements, analytics and leaderboards."
+/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet"
+/>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+
+<div class="background-gradient"></div>
+<div class="particles" id="particles"></div>
+
+<header class="navbar">
+
+<div class="logo">
+<i class="fa-solid fa-keyboard"></i>
+<span>TypeWithFun</span>
+</div>
+
+<nav class="nav-links">
+
+<a href="index.html">
+<i class="fa-solid fa-house"></i>
+Home
+</a>
+
+<a href="pages/practice.html">
+<i class="fa-solid fa-bolt"></i>
+Practice
+</a>
+
+<a href="pages/profile.html">
+<i class="fa-solid fa-user"></i>
+Profile
+</a>
+
+<a href="pages/leaderboard.html">
+<i class="fa-solid fa-trophy"></i>
+Leaderboard
+</a>
+
+<a href="pages/settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</nav>
+
+<div id="authArea"></div>
+
+</header>
+
+<main>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="badge">
+🔥 Daily Typing Challenge Available
+</div>
+
+<h1>
+Type Faster.
+<span>Learn Smarter.</span>
+Have Fun.
+</h1>
+
+<p>
+Professional touch-typing practice platform featuring
+analytics, achievements, leaderboards, daily challenges,
+and beautiful modern design.
+</p>
+
+<div class="hero-buttons">
+
+<a
+href="pages/practice.html"
+class="btn btn-primary"
+>
+Start Typing
+</a>
+
+<a
+href="pages/profile.html"
+class="btn btn-secondary"
+>
+View Profile
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="challenge-banner glass-card">
+
+<div>
+
+<h2>
+🏆 Daily Challenge
+</h2>
+
+<p id="dailyChallengeText">
+Loading challenge...
+</p>
+
+</div>
+
+<button
+id="challengeButton"
+class="btn btn-primary"
+>
+Start Challenge
+</button>
+
+</section>
+
+<section class="dashboard-grid">
+
+<a
+href="pages/practice.html"
+class="dashboard-card glass-card"
+>
+
+<div class="card-icon">
+⚡
+</div>
+
+<h3>Practice</h3>
+
+<p>
+Quotes, words, paragraphs and books.
+</p>
+
+</a>
+
+<a
+href="pages/profile.html"
+class="dashboard-card glass-card"
+>
+
+<div class="card-icon">
+👤
+</div>
+
+<h3>Profile</h3>
+
+<p>
+Track your progress and achievements.
+</p>
+
+</a>
+
+<a
+href="pages/leaderboard.html"
+class="dashboard-card glass-card"
+>
+
+<div class="card-icon">
+🏅
+</div>
+
+<h3>Leaderboard</h3>
+
+<p>
+Compete against top typists.
+</p>
+
+</a>
+
+<a
+href="#stats"
+class="dashboard-card glass-card"
+>
+
+<div class="card-icon">
+📈
+</div>
+
+<h3>Statistics</h3>
+
+<p>
+Detailed performance analytics.
+</p>
+
+</a>
+
+<a
+href="pages/settings.html"
+class="dashboard-card glass-card"
+>
+
+<div class="card-icon">
+⚙️
+</div>
+
+<h3>Settings</h3>
+
+<p>
+Customize your typing experience.
+</p>
+
+</a>
+
+<a
+href="#future"
+class="dashboard-card glass-card"
+>
+
+<div class="card-icon">
+🏎️
+</div>
+
+<h3>Race Mode</h3>
+
+<p>
+Multiplayer typing races coming soon.
+</p>
+
+</a>
+
+</section>
+
+<section class="features">
+
+<h2>
+Why Choose TypeWithFun?
+</h2>
+
+<div class="feature-grid">
+
+<div class="glass-card feature-card">
+<i class="fa-solid fa-chart-line"></i>
+<h3>Advanced Analytics</h3>
+<p>
+Track WPM, accuracy and growth.
+</p>
+</div>
+
+<div class="glass-card feature-card">
+<i class="fa-solid fa-medal"></i>
+<h3>Achievements</h3>
+<p>
+Unlock badges and milestones.
+</p>
+</div>
+
+<div class="glass-card feature-card">
+<i class="fa-solid fa-bullseye"></i>
+<h3>Daily Challenges</h3>
+<p>
+Stay motivated every day.
+</p>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<div
+id="authModal"
+class="modal hidden"
+aria-hidden="true"
+>
+
+<div class="modal-content glass-card">
+
+<button
+class="close-modal"
+id="closeAuthModal"
+>
+×
+</button>
+
+<h2 id="authTitle">
+Login
+</h2>
+
+<form id="authForm">
+
+<input
+type="text"
+id="username"
+placeholder="Username"
+/>
+
+<input
+type="email"
+id="email"
+placeholder="Email"
+/>
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+required
+/>
+
+<button
+type="submit"
+class="btn btn-primary"
+>
+Continue
+</button>
+
+</form>
+
+<p class="switch-auth">
+
+<span id="authSwitchText">
+Don't have an account?
+</span>
+
+<button id="switchAuthMode">
+Sign Up
+</button>
+
+</p>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>
+© 2026 TypeWithFun.
+Built for modern touch typing mastery.
+</p>
+
+</footer>
+
+<script src="data/quotes.js"></script>
+
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
