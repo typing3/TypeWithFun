@@ -1,4 +1,4 @@
-"use strict";
+ "use strict";
 
 const StatisticsController = {
 
@@ -22,7 +22,12 @@ const StatisticsController = {
                     )
                 ) || [];
 
-        } catch {
+        } catch (error) {
+
+            console.error(
+                "Failed to load typing history",
+                error
+            );
 
             this.history = [];
         }
@@ -34,6 +39,10 @@ const StatisticsController = {
             typeof Chart ===
             "undefined"
         ) {
+
+            console.error(
+                "Chart.js not loaded."
+            );
 
             return;
         }
@@ -50,80 +59,143 @@ const StatisticsController = {
         const wpmData =
             this.history.map(
                 item =>
-                    item.wpm
+                    item.wpm || 0
             );
 
         const accuracyData =
             this.history.map(
                 item =>
-                    item.accuracy
+                    item.accuracy || 0
             );
 
-        const wpmCanvas =
+        const timeData =
+            this.history.map(
+                item =>
+                    item.timeTaken || 0
+            );
+
+        const frequencyData =
+            this.history.map(
+                (
+                    item,
+                    index
+                ) =>
+                    index + 1
+            );
+
+        this.createChart(
+            "wpmChart",
+            "line",
+            "WPM Progress",
+            labels,
+            wpmData
+        );
+
+        this.createChart(
+            "accuracyChart",
+            "line",
+            "Accuracy Progress",
+            labels,
+            accuracyData
+        );
+
+        this.createChart(
+            "frequencyChart",
+            "bar",
+            "Practice Frequency",
+            labels,
+            frequencyData
+        );
+
+        this.createChart(
+            "timeChart",
+            "line",
+            "Typing Time (Seconds)",
+            labels,
+            timeData
+        );
+    },
+
+    createChart(
+        canvasId,
+        chartType,
+        datasetLabel,
+        labels,
+        data
+    ) {
+
+        const canvas =
             document.getElementById(
-                "wpmChart"
+                canvasId
             );
 
-        if (wpmCanvas) {
+        if (!canvas) {
 
-            new Chart(
-                wpmCanvas,
-                {
-
-                    type: "line",
-
-                    data: {
-
-                        labels,
-
-                        datasets: [
-
-                            {
-                                label:
-                                    "WPM",
-
-                                data:
-                                    wpmData
-                            }
-                        ]
-                    }
-                }
-            );
+            return;
         }
 
-        const accuracyCanvas =
-            document.getElementById(
-                "accuracyChart"
-            );
+        new Chart(
+            canvas,
+            {
 
-        if (
-            accuracyCanvas
-        ) {
+                type:
+                    chartType,
 
-            new Chart(
-                accuracyCanvas,
-                {
+                data: {
 
-                    type: "line",
+                    labels,
 
-                    data: {
+                    datasets: [
 
-                        labels,
+                        {
+                            label:
+                                datasetLabel,
 
-                        datasets: [
+                            data,
 
-                            {
-                                label:
-                                    "Accuracy",
+                            tension:
+                                0.35,
 
-                                data:
-                                    accuracyData
-                            }
-                        ]
+                            fill:
+                                false
+                        }
+                    ]
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    animation: {
+
+                        duration:
+                            1200
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            display:
+                                true
+                        }
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true
+                        }
                     }
                 }
-            );
-        }
+            }
+        );
     }
 };
 
@@ -131,7 +203,17 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        StatisticsController
-            .initialize();
+        try {
+
+            StatisticsController
+                .initialize();
+
+        } catch (error) {
+
+            console.error(
+                "Statistics initialization failed",
+                error
+            );
+        }
     }
 );
