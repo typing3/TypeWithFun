@@ -1,0 +1,645 @@
+/* =========================================================
+   TypeWithFun
+   Global Styles
+   style.css
+   ========================================================= */
+
+/* =========================
+   ROOT VARIABLES
+   ========================= */
+
+:root {
+  --primary: #4F46E5;
+  --secondary: #7C3AED;
+  --accent: #EC4899;
+
+  --bg: #050505;
+  --bg-secondary: #0D0D0D;
+  --surface: rgba(255, 255, 255, 0.08);
+
+  --text: #FFFFFF;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  --border: rgba(255,255,255,0.12);
+
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.25);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.35);
+  --shadow-lg: 0 25px 50px rgba(0,0,0,0.45);
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.35s ease;
+  --transition-slow: 0.5s ease;
+
+  --font-size-base: 16px;
+
+  --glass-bg:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.12),
+      rgba(255,255,255,0.04)
+    );
+
+  --glass-blur: blur(16px);
+}
+
+/* =========================
+   LIGHT THEME SUPPORT
+   ========================= */
+
+body.light-theme {
+  --bg: #F5F7FF;
+  --bg-secondary: #FFFFFF;
+
+  --surface: rgba(255,255,255,0.85);
+
+  --text: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+
+  --border: rgba(0,0,0,0.08);
+
+  --glass-bg:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.95),
+      rgba(255,255,255,0.75)
+    );
+}
+
+/* =========================
+   RESET
+   ========================= */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+
+  font-family: "Inter", sans-serif;
+  font-size: var(--font-size-base);
+
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  position: relative;
+}
+
+/* =========================
+   SELECTION
+   ========================= */
+
+::selection {
+  background: var(--primary);
+  color: white;
+}
+
+/* =========================
+   SCROLLBAR
+   ========================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* =========================
+   TYPOGRAPHY
+   ========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+p {
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* =========================
+   MAIN LAYOUT
+   ========================= */
+
+main {
+  width: min(1280px, 92%);
+  margin-inline: auto;
+}
+
+section {
+  margin-bottom: 4rem;
+}
+
+/* =========================
+   BACKGROUND EFFECTS
+   ========================= */
+
+.background-gradient {
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(124,58,237,0.25),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(79,70,229,0.25),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at bottom center,
+      rgba(236,72,153,0.15),
+      transparent 40%
+    );
+
+  z-index: -3;
+}
+
+.particles {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: -2;
+}
+
+/* =========================
+   NAVBAR
+   ========================= */
+
+.navbar {
+  width: min(1400px, 95%);
+  margin: 1rem auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 1.5rem;
+
+  position: sticky;
+  top: 10px;
+
+  z-index: 1000;
+
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(20px);
+
+  background: rgba(0,0,0,0.25);
+
+  border-radius: var(--radius-lg);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.logo i {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links a {
+  padding: .8rem 1rem;
+
+  border-radius: 12px;
+
+  color: var(--text-secondary);
+
+  transition: var(--transition-fast);
+
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.nav-links a:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+/* =========================
+   HERO SECTION
+   ========================= */
+
+.hero {
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero h1 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 span {
+  background:
+    linear-gradient(
+      90deg,
+      var(--primary),
+      var(--secondary),
+      var(--accent)
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  max-width: 750px;
+  margin-inline: auto;
+  font-size: 1.15rem;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  margin-top: 2rem;
+
+  flex-wrap: wrap;
+}
+
+/* =========================
+   BADGES
+   ========================= */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: .8rem 1.2rem;
+
+  border-radius: 999px;
+
+  border: 1px solid var(--border);
+
+  background: rgba(255,255,255,0.05);
+
+  font-size: .95rem;
+}
+
+/* =========================
+   CHALLENGE BANNER
+   ========================= */
+
+.challenge-banner {
+  padding: 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.challenge-banner h2 {
+  margin-bottom: .5rem;
+}
+
+/* =========================
+   DASHBOARD GRID
+   ========================= */
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  padding: 2rem;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-card p {
+  margin-top: .5rem;
+}
+
+/* =========================
+   FEATURES SECTION
+   ========================= */
+
+.features {
+  text-align: center;
+}
+
+.features h2 {
+  margin-bottom: 2rem;
+}
+
+.feature-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
+  gap: 1.5rem;
+}
+
+.feature-card {
+  padding: 2rem;
+}
+
+.feature-card i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+
+  color: var(--primary);
+}
+
+/* =========================
+   AUTH MODAL
+   ========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.75);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 5000;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-content {
+  width: min(450px, 92%);
+
+  position: relative;
+
+  padding: 2rem;
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content input {
+  width: 100%;
+
+  padding: 1rem;
+
+  border-radius: 12px;
+
+  border: 1px solid var(--border);
+
+  background: rgba(255,255,255,0.05);
+
+  color: var(--text);
+
+  outline: none;
+}
+
+.modal-content input:focus {
+  border-color: var(--primary);
+}
+
+.close-modal {
+  position: absolute;
+
+  right: 12px;
+  top: 12px;
+
+  background: transparent;
+  border: none;
+
+  color: var(--text);
+
+  font-size: 2rem;
+
+  cursor: pointer;
+}
+
+.switch-auth {
+  margin-top: 1rem;
+}
+
+.switch-auth button {
+  background: transparent;
+  border: none;
+
+  color: var(--primary);
+
+  cursor: pointer;
+}
+
+/* =========================
+   USER PANEL
+   ========================= */
+
+.user-panel {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.username-display {
+  font-weight: 600;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+  text-align: center;
+
+  padding: 2rem;
+
+  color: var(--text-muted);
+}
+
+/* =========================
+   ACCESSIBILITY
+   ========================= */
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+button,
+input,
+select,
+textarea,
+a {
+  font-family: inherit;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1024px) {
+
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .hero {
+    padding-top: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .challenge-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+
+  body {
+    font-size: 15px;
+  }
+
+  .navbar {
+    width: 96%;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-links a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+  }
+}
