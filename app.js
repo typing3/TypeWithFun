@@ -1,27 +1,13 @@
 /* =========================================================
    TypeWithFun
    app.js
-
    Main Application Controller
-   GitHub Pages Compatible
-   No Backend Required
-
-   Responsibilities:
-   - App startup
-   - Theme management
-   - Settings loading
-   - Daily challenge system
-   - Particle background
-   - Navigation helpers
-   - Accessibility helpers
-   - Global utilities
-   - Error handling
    ========================================================= */
 
 "use strict";
 
 /* =========================================================
-   APP CONTROLLER
+   APPLICATION CONTROLLER
    ========================================================= */
 
 const App = {
@@ -60,7 +46,8 @@ const App = {
             );
 
             if (
-                typeof showToast === "function"
+                typeof showToast ===
+                "function"
             ) {
 
                 showToast(
@@ -87,7 +74,9 @@ const App = {
         const settings =
             SettingsStorage.getSettings();
 
-        if (!settings) return;
+        if (!settings) {
+            return;
+        }
 
         this.applyTheme(
             settings.theme
@@ -167,7 +156,7 @@ const App = {
     },
 
     /* =====================================================
-       DAILY CHALLENGE
+       DAILY CHALLENGE UI
        ===================================================== */
 
     renderDailyChallenge() {
@@ -225,15 +214,17 @@ const App = {
                 "particles"
             );
 
-        if (!container) return;
+        if (!container) {
+            return;
+        }
 
         container.innerHTML = "";
 
-        const count = 30;
+        const particleCount = 30;
 
         for (
             let i = 0;
-            i < count;
+            i < particleCount;
             i++
         ) {
 
@@ -259,8 +250,7 @@ const App = {
                 `${Math.random() * 100}%`;
 
             particle.style.opacity =
-                (Math.random() * 0.5)
-                .toString();
+                `${Math.random() * 0.5}`;
 
             particle.style.animationDuration =
                 `${10 + Math.random() * 15}s`;
@@ -324,32 +314,32 @@ const App = {
     },
 
     /* =====================================================
-       NAVIGATION
+       NAVIGATION BUTTONS
        ===================================================== */
 
     bindNavigationButtons() {
 
-        const homeBtn =
+        const homeButton =
             document.getElementById(
                 "homeButton"
             );
 
-        const backBtn =
+        const backButton =
             document.getElementById(
                 "backButton"
             );
 
-        if (homeBtn) {
+        if (homeButton) {
 
-            homeBtn.addEventListener(
+            homeButton.addEventListener(
                 "click",
                 () => Navigation.goHome()
             );
         }
 
-        if (backBtn) {
+        if (backButton) {
 
-            backBtn.addEventListener(
+            backButton.addEventListener(
                 "click",
                 () => Navigation.goBack()
             );
@@ -357,7 +347,7 @@ const App = {
     },
 
     /* =====================================================
-       EVENTS
+       GLOBAL EVENTS
        ===================================================== */
 
     registerGlobalEvents() {
@@ -643,7 +633,7 @@ const Utils = {
 };
 
 /* =========================================================
-   NAVIGATION HELPERS
+   NAVIGATION
    ========================================================= */
 
 const Navigation = {
@@ -665,7 +655,7 @@ const Navigation = {
         } else {
 
             window.location.href =
-                "index.html";
+                "./index.html";
         }
     },
 
@@ -693,6 +683,7 @@ const ThemeManager = {
             typeof SettingsStorage ===
             "undefined"
         ) {
+
             return;
         }
 
@@ -717,7 +708,7 @@ const ThemeManager = {
 };
 
 /* =========================================================
-   PERFORMANCE HELPERS
+   PERFORMANCE
    ========================================================= */
 
 const PerformanceMonitor = {
@@ -818,25 +809,13 @@ const AppInfo = {
    ========================================================= */
 
 window.App = App;
-
 window.Utils = Utils;
-
-window.Navigation =
-    Navigation;
-
-window.ThemeManager =
-    ThemeManager;
-
-window.DailyChallenge =
-    DailyChallenge;
-
-window.PerformanceMonitor =
-    PerformanceMonitor;
-
+window.Navigation = Navigation;
+window.ThemeManager = ThemeManager;
+window.DailyChallenge = DailyChallenge;
+window.PerformanceMonitor = PerformanceMonitor;
 window.Page = Page;
-
-window.AppInfo =
-    AppInfo;
+window.AppInfo = AppInfo;
 
 /* =========================================================
    START APPLICATION
