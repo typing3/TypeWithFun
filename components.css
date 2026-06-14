@@ -876,3 +876,57 @@
     font-size: 2.2rem;
   }
 }
+/* =========================================================
+   PREMIUM BACKGROUND
+   ========================================================= */
+
+.stats-dashboard {
+  position: relative;
+  z-index: 1;
+}
+
+.stats-dashboard::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(99,102,241,.20),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(168,85,247,.18),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom center,
+      rgba(14,165,233,.12),
+      transparent 40%
+    );
+
+  pointer-events: none;
+
+  z-index: -2;
+}
+
+.stats-dashboard::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15,23,42,.3),
+      rgba(2,6,23,.7)
+    );
+
+  z-index: -1;
+
+  pointer-events: none;
+}
