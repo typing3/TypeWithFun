@@ -1,15 +1,28 @@
- "use strict";
+ /* =========================================================
+   TypeWithFun
+   statistics.js
+   ========================================================= */
+
+"use strict";
 
 const StatisticsController = {
 
     history: [],
 
+    charts: {},
+
     initialize() {
 
         this.loadHistory();
 
-        this.renderCharts();
+        this.updateSummaryCards();
+
+        this.createCharts();
     },
+
+    /* =====================================================
+       LOAD HISTORY
+       ===================================================== */
 
     loadHistory() {
 
@@ -22,182 +35,321 @@ const StatisticsController = {
                     )
                 ) || [];
 
-        } catch (error) {
-
-            console.error(
-                "Failed to load typing history",
-                error
-            );
+        } catch {
 
             this.history = [];
         }
     },
 
-    renderCharts() {
+    /* =====================================================
+       SUMMARY
+       ===================================================== */
 
-        if (
-            typeof Chart ===
-            "undefined"
-        ) {
+    updateSummaryCards() {
 
-            console.error(
-                "Chart.js not loaded."
+        const totalTests =
+            this.history.length;
+
+        const bestWPM =
+            totalTests > 0
+                ? Math.max(
+                      ...this.history.map(
+                          item => item.wpm || 0
+                      )
+                  )
+                : 0;
+
+        const averageAccuracy =
+            totalTests > 0
+                ? Math.round(
+                      this.history.reduce(
+                          (total, item) =>
+                              total +
+                              (item.accuracy || 0),
+                          0
+                      ) / totalTests
+                  )
+                : 0;
+
+        const totalTime =
+            this.history.reduce(
+                (total, item) =>
+                    total +
+                    (item.timeTaken || 0),
+                0
             );
 
-            return;
+        const totalMinutes =
+            Math.round(totalTime / 60);
+
+        const totalTestsEl =
+            document.getElementById(
+                "totalTests"
+            );
+
+        const bestWPMEl =
+            document.getElementById(
+                "bestWPM"
+            );
+
+        const averageAccuracyEl =
+            document.getElementById(
+                "averageAccuracy"
+            );
+
+        const totalTypingTimeEl =
+            document.getElementById(
+                "totalTypingTime"
+            );
+
+        if (totalTestsEl) {
+            totalTestsEl.textContent =
+                totalTests;
         }
 
-        const labels =
-            this.history.map(
-                (
-                    item,
-                    index
-                ) =>
-                    `Test ${index + 1}`
-            );
+        if (bestWPMEl) {
+            bestWPMEl.textContent =
+                bestWPM;
+        }
 
-        const wpmData =
-            this.history.map(
-                item =>
-                    item.wpm || 0
-            );
+        if (averageAccuracyEl) {
+            averageAccuracyEl.textContent =
+                averageAccuracy + "%";
+        }
 
-        const accuracyData =
-            this.history.map(
-                item =>
-                    item.accuracy || 0
-            );
+        if (totalTypingTimeEl) {
+            totalTypingTimeEl.textContent =
+                totalMinutes + "m";
+        }
+    },
 
-        const timeData =
-            this.history.map(
-                item =>
-                    item.timeTaken || 0
-            );
+    /* =====================================================
+       CHART DATA
+       ===================================================== */
 
-        const frequencyData =
-            this.history.map(
-                (
-                    item,
-                    index
-                ) =>
-                    index + 1
-            );
+    getLabels() {
 
-        this.createChart(
-            "wpmChart",
-            "line",
-            "WPM Progress",
-            labels,
-            wpmData
-        );
-
-        this.createChart(
-            "accuracyChart",
-            "line",
-            "Accuracy Progress",
-            labels,
-            accuracyData
-        );
-
-        this.createChart(
-            "frequencyChart",
-            "bar",
-            "Practice Frequency",
-            labels,
-            frequencyData
-        );
-
-        this.createChart(
-            "timeChart",
-            "line",
-            "Typing Time (Seconds)",
-            labels,
-            timeData
+        return this.history.map(
+            (_, index) =>
+                `Test ${index + 1}`
         );
     },
 
-    createChart(
-        canvasId,
-        chartType,
-        datasetLabel,
-        labels,
-        data
-    ) {
+    /* =====================================================
+       CHARTS
+       ===================================================== */
+
+    createCharts() {
+
+        this.createWPMChart();
+
+        this.createAccuracyChart();
+
+        this.createFrequencyChart();
+
+        this.createTimeChart();
+    },
+
+    createWPMChart() {
 
         const canvas =
             document.getElementById(
-                canvasId
+                "wpmChart"
             );
 
-        if (!canvas) {
+        if (!canvas) return;
 
-            return;
-        }
+        new Chart(canvas, {
 
-        new Chart(
-            canvas,
-            {
+            type: "line",
 
-                type:
-                    chartType,
+            data: {
 
-                data: {
+                labels:
+                    this.getLabels(),
 
-                    labels,
+                datasets: [
 
-                    datasets: [
+                    {
+                        label: "WPM",
 
-                        {
-                            label:
-                                datasetLabel,
+                        data:
+                            this.history.map(
+                                item =>
+                                    item.wpm || 0
+                            ),
 
-                            data,
+                        tension: 0.3
+                    }
+                ]
+            },
 
-                            tension:
-                                0.35,
+            options: {
 
-                            fill:
-                                false
-                        }
-                    ]
-                },
+                responsive: true,
 
-                options: {
+                maintainAspectRatio: false
+            }
+        });
+    },
 
-                    responsive:
-                        true,
+    createAccuracyChart() {
 
-                    maintainAspectRatio:
-                        false,
+        const canvas =
+            document.getElementById(
+                "accuracyChart"
+            );
 
-                    animation: {
+        if (!canvas) return;
 
-                        duration:
-                            1200
-                    },
+        new Chart(canvas, {
 
-                    plugins: {
+            type: "line",
 
-                        legend: {
+            data: {
 
-                            display:
-                                true
-                        }
-                    },
+                labels:
+                    this.getLabels(),
 
-                    scales: {
+                datasets: [
 
-                        y: {
+                    {
+                        label: "Accuracy %",
 
-                            beginAtZero:
-                                true
-                        }
+                        data:
+                            this.history.map(
+                                item =>
+                                    item.accuracy || 0
+                            ),
+
+                        tension: 0.3
+                    }
+                ]
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    y: {
+
+                        min: 0,
+
+                        max: 100
                     }
                 }
             }
+        });
+    },
+
+    createFrequencyChart() {
+
+        const canvas =
+            document.getElementById(
+                "frequencyChart"
+            );
+
+        if (!canvas) return;
+
+        const dailyCounts = {};
+
+        this.history.forEach(
+            item => {
+
+                const day =
+                    new Date(
+                        item.date
+                    ).toLocaleDateString();
+
+                dailyCounts[day] =
+                    (dailyCounts[day] || 0) + 1;
+            }
         );
+
+        new Chart(canvas, {
+
+            type: "bar",
+
+            data: {
+
+                labels:
+                    Object.keys(
+                        dailyCounts
+                    ),
+
+                datasets: [
+
+                    {
+                        label:
+                            "Tests Per Day",
+
+                        data:
+                            Object.values(
+                                dailyCounts
+                            )
+                    }
+                ]
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false
+            }
+        });
+    },
+
+    createTimeChart() {
+
+        const canvas =
+            document.getElementById(
+                "timeChart"
+            );
+
+        if (!canvas) return;
+
+        new Chart(canvas, {
+
+            type: "bar",
+
+            data: {
+
+                labels:
+                    this.getLabels(),
+
+                datasets: [
+
+                    {
+                        label:
+                            "Time Taken (seconds)",
+
+                        data:
+                            this.history.map(
+                                item =>
+                                    item.timeTaken || 0
+                            )
+                    }
+                ]
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false
+            }
+        });
     }
 };
+
+/* =========================================================
+   START
+   ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -211,7 +363,7 @@ document.addEventListener(
         } catch (error) {
 
             console.error(
-                "Statistics initialization failed",
+                "Statistics Error",
                 error
             );
         }
