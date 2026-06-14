@@ -1,0 +1,675 @@
+/* =========================================================
+   TypeWithFun
+   Reusable Components
+   components.css
+   ========================================================= */
+
+/* =========================
+   GLASSMORPHISM CARDS
+   ========================= */
+
+.glass-card {
+  background: var(--glass-bg);
+
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-md);
+
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.glass-card:hover {
+  border-color: rgba(255,255,255,0.18);
+
+  box-shadow: var(--shadow-lg);
+
+  transform: translateY(-4px);
+}
+
+/* =========================
+   BUTTON SYSTEM
+   ========================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+
+  padding: .95rem 1.5rem;
+
+  border: none;
+  border-radius: 14px;
+
+  font-weight: 600;
+  font-size: .95rem;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    opacity .2s ease,
+    box-shadow .25s ease;
+
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
+.btn-primary {
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
+
+  box-shadow:
+    0 10px 25px rgba(79,70,229,.35);
+}
+
+.btn-primary:hover {
+  box-shadow:
+    0 18px 35px rgba(79,70,229,.45);
+}
+
+.btn-secondary {
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  background: rgba(255,255,255,.05);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,.08);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: black;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* =========================
+   ICON BUTTONS
+   ========================= */
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text);
+
+  background: rgba(255,255,255,.06);
+
+  transition: .25s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255,255,255,.12);
+}
+
+/* =========================
+   INPUTS
+   ========================= */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.input-group label {
+  font-size: .9rem;
+  color: var(--text-secondary);
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+
+  padding: 1rem;
+
+  border-radius: 14px;
+
+  border: 1px solid var(--border);
+
+  background: rgba(255,255,255,.05);
+
+  color: var(--text);
+
+  transition: .25s ease;
+
+  outline: none;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: var(--primary);
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* =========================
+   SECTION HEADERS
+   ========================= */
+
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  margin-bottom: .5rem;
+}
+
+.section-header p {
+  color: var(--text-muted);
+}
+
+/* =========================
+   STAT CARDS
+   ========================= */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 1rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: .9rem;
+}
+
+.stat-value {
+  margin-top: .5rem;
+
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.stat-change {
+  margin-top: .5rem;
+  font-size: .85rem;
+}
+
+.positive {
+  color: var(--success);
+}
+
+.negative {
+  color: var(--danger);
+}
+
+/* =========================
+   PROFILE COMPONENTS
+   ========================= */
+
+.profile-card {
+  display: flex;
+  gap: 2rem;
+
+  align-items: center;
+
+  padding: 2rem;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 4px solid rgba(255,255,255,.15);
+}
+
+.profile-info h2 {
+  margin-bottom: .5rem;
+}
+
+.profile-meta {
+  color: var(--text-muted);
+}
+
+.profile-stats {
+  margin-top: 2rem;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(150px, 1fr));
+
+  gap: 1rem;
+}
+
+/* =========================
+   LEADERBOARD TABLE
+   ========================= */
+
+.table-container {
+  overflow-x: auto;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.leaderboard-table thead {
+  background: rgba(255,255,255,.05);
+}
+
+.leaderboard-table tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.leaderboard-table tbody tr:hover {
+  background: rgba(255,255,255,.03);
+}
+
+.rank-badge {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.rank-1 {
+  background: gold;
+  color: black;
+}
+
+.rank-2 {
+  background: silver;
+  color: black;
+}
+
+.rank-3 {
+  background: #CD7F32;
+  color: white;
+}
+
+/* =========================
+   ACHIEVEMENTS
+   ========================= */
+
+.achievement-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
+
+  gap: 1rem;
+}
+
+.achievement-card {
+  text-align: center;
+
+  padding: 1.5rem;
+}
+
+.achievement-icon {
+  font-size: 2.5rem;
+  margin-bottom: .75rem;
+}
+
+.achievement-locked {
+  opacity: .45;
+  filter: grayscale(100%);
+}
+
+.achievement-unlocked {
+  animation: achievementGlow 3s infinite;
+}
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
+
+.progress {
+  width: 100%;
+  height: 12px;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  background: rgba(255,255,255,.08);
+}
+
+.progress-fill {
+  height: 100%;
+
+  width: 0%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--primary),
+      var(--accent)
+    );
+
+  transition: width .4s ease;
+}
+
+/* =========================
+   TYPING TEST UI
+   ========================= */
+
+.typing-container {
+  padding: 2rem;
+}
+
+.typing-text {
+  line-height: 2;
+
+  font-size: 1.3rem;
+
+  user-select: none;
+}
+
+.char-correct {
+  color: var(--success);
+}
+
+.char-incorrect {
+  color: var(--danger);
+  text-decoration: underline;
+}
+
+.char-current {
+  background: rgba(79,70,229,.35);
+  border-radius: 3px;
+}
+
+.typing-stats {
+  margin-top: 2rem;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(120px,1fr));
+
+  gap: 1rem;
+}
+
+/* =========================
+   TIMER DISPLAY
+   ========================= */
+
+.timer-box {
+  text-align: center;
+}
+
+.timer-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.timer-label {
+  color: var(--text-muted);
+}
+
+/* =========================
+   CHART CONTAINERS
+   ========================= */
+
+.chart-card {
+  padding: 1.5rem;
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 350px;
+}
+
+/* =========================
+   TABS
+   ========================= */
+
+.tabs {
+  display: flex;
+  gap: .75rem;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  padding: .8rem 1rem;
+
+  border: none;
+
+  cursor: pointer;
+
+  color: var(--text);
+
+  border-radius: 12px;
+
+  background: rgba(255,255,255,.06);
+}
+
+.tab-btn.active {
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
+}
+
+/* =========================
+   TOAST NOTIFICATIONS
+   ========================= */
+
+.toast-container {
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.toast {
+  min-width: 280px;
+
+  padding: 1rem;
+
+  border-radius: 14px;
+
+  color: white;
+
+  backdrop-filter: blur(15px);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.toast-success {
+  background: rgba(34,197,94,.9);
+}
+
+.toast-error {
+  background: rgba(239,68,68,.9);
+}
+
+.toast-warning {
+  background: rgba(245,158,11,.9);
+}
+
+/* =========================
+   BADGES
+   ========================= */
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+
+  padding: .5rem .9rem;
+
+  border-radius: 999px;
+
+  font-size: .85rem;
+
+  background: rgba(255,255,255,.08);
+}
+
+/* =========================
+   EMPTY STATES
+   ========================= */
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+
+  color: var(--text-muted);
+}
+
+/* =========================
+   LOADING SPINNER
+   ========================= */
+
+.spinner {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  border: 4px solid rgba(255,255,255,.15);
+  border-top-color: var(--primary);
+
+  animation: spin 1s linear infinite;
+}
+
+/* =========================
+   UTILITIES
+   ========================= */
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-1 { margin-top: .5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: .5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.hidden {
+  display: none !important;
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .typing-text {
+    font-size: 1.1rem;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: .75rem;
+  }
+
+  .toast {
+    min-width: auto;
+    width: calc(100vw - 40px);
+  }
+}
