@@ -1,4 +1,57 @@
  ```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TypeWithFun • Statistics</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/animations.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- Background -->
+
+<div id="particles" class="particles"></div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Navbar -->
+
+<nav class="navbar glass">
+
+    <div class="nav-left">
+
+        <a href="../index.html" class="btn btn-secondary">
+            🏠 Home
+        </a>
+
+        <button onclick="history.back()" class="btn btn-secondary">
+            ← Back
+        </button>
+
+    </div>
+
+</nav>
+
+<!-- Main -->
+
 <main class="stats-dashboard">
 
     <!-- HERO -->
@@ -6,22 +59,47 @@
     <section class="stats-hero glass-card">
 
         <div class="hero-left">
-            <h1>⚡ Your Typing Journey</h1>
-            <p>Track progress, unlock achievements and improve daily.</p>
+
+            <span class="hero-tag">
+                PERFORMANCE ANALYTICS
+            </span>
+
+            <h1>
+                Your Typing Journey
+            </h1>
+
+            <p>
+                Track your growth, unlock achievements,
+                beat your records and improve every day.
+            </p>
+
         </div>
 
-        <div class="hero-rank">
-            <div class="rank-badge">
-                🥉 Beginner
+        <div class="hero-right">
+
+            <div class="rank-card">
+
+                <span>Current Rank</span>
+
+                <h2 id="rankTitle">
+                    Beginner
+                </h2>
+
+                <div class="xp-bar">
+
+                    <div
+                        class="xp-fill"
+                        id="xpFill">
+                    </div>
+
+                </div>
+
+                <small id="xpText">
+                    0 XP
+                </small>
+
             </div>
 
-            <div class="xp-bar">
-                <div class="xp-fill" id="xpFill"></div>
-            </div>
-
-            <span>
-                120 / 300 XP
-            </span>
         </div>
 
     </section>
@@ -46,30 +124,71 @@
         </div>
 
         <div class="modern-stat-card">
-            <span>🔥 Streak</span>
-            <h2 id="currentStreak">1</h2>
+            <span>🔥 Practice Time</span>
+            <h2 id="totalTypingTime">0m</h2>
         </div>
 
     </section>
 
-    <!-- MAIN GRID -->
+    <!-- CONTENT GRID -->
 
     <section class="dashboard-grid">
 
-        <div class="glass-card panel">
+        <!-- Main Chart -->
 
-            <h3>
-                📈 Speed Trend
-            </h3>
+        <div class="glass-card panel panel-large">
+
+            <div class="panel-header">
+
+                <h3>
+                    ⚡ Speed Progress
+                </h3>
+
+                <span>
+                    Last Sessions
+                </span>
+
+            </div>
 
             <canvas id="wpmChart"></canvas>
 
         </div>
 
+        <!-- Records -->
+
         <div class="glass-card panel">
 
             <h3>
-                🏅 Achievements
+                🏆 Personal Records
+            </h3>
+
+            <ul class="records-list">
+
+                <li>
+                    Best WPM
+                    <strong id="recordWPM">0</strong>
+                </li>
+
+                <li>
+                    Best Accuracy
+                    <strong id="recordAccuracy">0%</strong>
+                </li>
+
+                <li>
+                    Total Tests
+                    <strong id="recordTests">0</strong>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Achievements -->
+
+        <div class="glass-card panel">
+
+            <h3>
+                🎖 Achievements
             </h3>
 
             <div class="achievement-list">
@@ -78,59 +197,33 @@
                     ✅ First Test
                 </div>
 
-                <div class="achievement">
+                <div class="achievement" id="achievement50">
                     🔒 Reach 50 WPM
                 </div>
 
-                <div class="achievement">
-                    🔒 Reach 100 Tests
+                <div class="achievement" id="achievement100">
+                    🔒 Reach 100 WPM
                 </div>
 
-                <div class="achievement">
-                    🔒 Accuracy 95%
+                <div class="achievement" id="achievement95">
+                    🔒 95% Accuracy
                 </div>
 
             </div>
 
         </div>
 
-        <div class="glass-card panel">
-
-            <h3>
-                📊 Personal Records
-            </h3>
-
-            <ul class="records-list">
-
-                <li>
-                    Best WPM:
-                    <strong id="recordWPM">0</strong>
-                </li>
-
-                <li>
-                    Best Accuracy:
-                    <strong id="recordAccuracy">0%</strong>
-                </li>
-
-                <li>
-                    Total Practice:
-                    <strong id="totalTypingTime">0m</strong>
-                </li>
-
-            </ul>
-
-        </div>
+        <!-- Insights -->
 
         <div class="glass-card panel">
 
             <h3>
-                💡 Insights
+                💡 AI Insights
             </h3>
 
             <div id="insightsBox">
 
-                Keep practicing to unlock
-                your next typing rank.
+                Complete more tests to unlock insights.
 
             </div>
 
@@ -139,4 +232,12 @@
     </section>
 
 </main>
+
+<script src="../js/storage.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/statistics.js"></script>
+
+</body>
+
+</html>
 ```
